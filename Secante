@@ -1,0 +1,42 @@
+package guia2;
+import static java.lang.System.exit;
+public class Secante {
+        public static void main(String[] args) {
+        Secante();
+    }
+        public static void Secante(){
+        double xv = 10;
+        double xvv = 9;
+        double xn = 0;
+        double error = 0;
+        double i = 0;
+        double tol = 1e-10;
+        
+        do{
+            i++;
+            xn = (xv - ((f(xv)*(xvv-xv))/(f(xvv)-f(xv))));
+            if(Math.abs(fp(xn))<1e-10){
+                System.out.println("Derivada demasiado grande!");
+                exit(1);
+            }
+            error = Math.abs(xn-xv);
+            
+            xvv = xv;
+            xv = xn;
+        }while(error>tol && i<=10000);
+        
+        System.out.println("X nuevo:"+xn+"\n");
+        if(f(xn)<tol){
+            System.out.println("X nuevo: "+xn);
+            System.out.println("\nError: "+error);
+            System.out.println("\nIteracion: "+i);
+        }
+    }
+    
+    public static double f(double x){
+        return (Math.exp(-x)-x);
+    }
+    public static double fp(double x){
+        return ((-1/Math.exp(x))-1);
+    }
+}
