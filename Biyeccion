@@ -1,0 +1,42 @@
+package mncclase1;
+import static java.lang.Math.*;
+import static java.lang.System.exit;
+import java.util.*;
+import java.math.*;
+
+public class Biyeccion {
+
+    public static void main(String[] args) {
+        double a=0.1;//Extremo izquierdo
+        double b=0.3;//Extremo derecho
+        double c; //Raiz
+        double error=0;
+        double tolerancia=10E-10;
+        int iteracion=0;
+        
+        if (f(a)*f(b)>0){
+            System.out.println("No hay raices o hay un numero par de ellas\n");
+            exit(0);
+        }
+        do{
+            iteracion++;
+            c=(b+a)/2;
+            if (f(a)*f(c)>0){
+                a=c;
+            }else if(f(a)*f(c)<0){
+                b=c;
+            }else{
+                System.out.println("La raiz es: "+String.format("%.10f", c));
+                System.out.println("Numero de iteraciones: "+iteracion);
+                exit(1);
+            }
+            error=(b-a)/2;
+            
+        }while(error>tolerancia);
+        System.out.println("Iteracion: "+iteracion+"\nError: "+error+"\nRaiz: "+c);
+    }
+    public static double f (double x){
+        double f=Math.log(x)+Math.exp(Math.sin(x));
+        return f;
+    }
+}
