@@ -1,0 +1,49 @@
+package mncclase1;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+public class Lagrange {
+    public static void main(String[] args) {
+        int TAM=2;//Cantidad de X e Y
+        double [] Xn= new double[TAM];
+        double [] Yn= new double[TAM];
+        double Xsombrero=2;//Valor a interpolar
+        double sum=0;
+        double producto=1;
+
+        CargarMatriz(Xn, Yn);
+        System.out.println("Contolar los datos:");
+        ImprimirrMatriz(Xn, Yn);
+        //Codigo
+        for (int k = 0; k < TAM; k++) {
+            producto = 1;
+            for (int i = 0; i < TAM; i++) {
+                if (i != k) {
+                    producto *= ((Xsombrero-Xn[i])/(Xn[k]-Xn[i])) ;
+                }
+            }
+            sum += Yn[k]* producto;
+        }
+        System.out.println("El Y interpolado es: "+ sum);
+        System.out.println("X");
+    }
+    public static void CargarMatriz(double []Xn,double [] Yn){
+        Scanner consola= new Scanner(System.in);
+        for(int i=0;i<Xn.length;i++){
+            System.out.println("Ingrese el Xn["+i+"]");
+            Xn[i]=consola.nextDouble();
+            System.out.println("Ingrese el Yn["+i+"]");
+            Yn[i]=consola.nextDouble();
+        }
+    }
+    public static void ImprimirrMatriz(double []Xn,double [] Yn){
+        DecimalFormat df = new DecimalFormat("0.00000");//Setear cantidad de decimales de la matriz
+        String format =df.format(0);
+        String formatY =df.format(0);
+        System.out.println("  X  |  Y  ");
+        for(int i=0;i<Xn.length;i++){
+            format=df.format(Xn[i]);
+            formatY=df.format(Yn[i]);
+            System.out.println(format+" | "+formatY);
+        }
+    }
+}
