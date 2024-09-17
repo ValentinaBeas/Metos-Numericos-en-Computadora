@@ -1,0 +1,43 @@
+
+package guia2;
+
+import static java.lang.System.exit;
+
+public class PuntoFijo {
+
+    public static void main(String[] args) {
+        puntoFijo();
+    }
+    public static void puntoFijo(){
+            double xv = 10;
+            double xn = 0;
+            double tol = 1e-10;
+            double error = 0;
+            double i = 0;
+            do {
+                i++;
+                System.out.println(i);
+                xn = f(xv);
+                System.out.println(xn);
+                if(Math.abs((f(xv+0.001)-f(xv))/0.001)>1){
+                    System.out.println(Math.abs((f(xv-0.001)-f(xv))/0.001));
+                    System.out.println("No cumple con el criterio de convergencia!");
+                    exit(1);
+                }
+                System.out.println(i);
+                error = Math.abs(xn-xv);
+                xv = xn;
+            
+            }while(error>tol);
+            
+            System.out.println("X nuevo: "+xn+"\n");
+            System.out.println("Error: "+error+"\n");
+            System.out.println("Iteraciones: "+i+"\n");
+    }
+    
+    
+    public static double f(double x){
+        //double funcion = -Math.pow(x, 3)+2*Math.pow(x, 2)+Math.log(x);
+        return (Math.exp(-x));
+    }
+}
