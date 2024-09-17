@@ -1,0 +1,36 @@
+package mncclase1;
+import static java.lang.System.exit;
+import static mncclase1.Problema1.f;
+
+public class Problema1RF {
+    public static void main(String[] args) {
+        double a = 0.3;
+        double b = 0.4;
+        double c;
+        double tol = 10E-10;
+        double error = 0;
+        int iteracion = 0;
+        
+        if ((f(a)*f(b))>0){
+            System.out.println("No hay raices");
+            exit(0);
+        }
+        do{
+            iteracion++;
+            c=(b+a)/2;
+            if (f(a)*f(c)>0){
+                a=c;
+            }else if(f(a)*f(c)<0){
+                b=c;
+            }else{
+                System.out.println("La raiz es: "+String.format("%.10f", c));
+                System.out.println("Numero de iteraciones: "+iteracion);
+                exit(1);
+            }
+            error=(b-a)/2;
+            
+        }while(error>tol);
+        System.out.println("Iteracion: "+iteracion+"\nError: "+String.format("%.10f", c)+"\nRaiz: "+c);
+    
+    }
+}
