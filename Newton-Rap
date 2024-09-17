@@ -1,54 +1,44 @@
-package mncclase1;
+package guia2;
 
 import static java.lang.System.exit;
-import java.util.Scanner;
 
-public class Ejercicio3 {
+public class NewtonRaphson {
     public static void main(String[] args) {
-        double a;
-        double b;
-        double c;
-        double error;
-        double tol;
-        int decimales;
-        int iteracion = 0;
-        
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Ingrese el valor inferior del intervalo:\n");
-        a = scanner.nextDouble();
-        System.out.println("Ingrese el valor superior del intervalo:\n");
-        b = scanner.nextDouble();
-        System.out.println("Ingrese la tolerancia de decimales de error esperada:\n");
-        decimales = scanner.nextInt();
-        tol = Math.pow(10,(-decimales));
-        
-        if(f2(a)*f2(b)>0){
-            System.out.println("\nNo hay raices o hay un numero par de elementos.\n");
-        }
-        
-        error = Math.abs((b-a)/2);
-        
-        do {
-            c=(b+a)/2;
-            if((f2(a)*f2(c))>0){
-                a = c;
-            }else if((f2(a)*f2(c))<0){
-                b = c;
-            }else{
-                System.out.println("\nLa Raiz es: " + String.format("%.7f", c));
-                exit(0);
-            }
-            
-            error = Math.abs((b-a)/2);
-            
-        }while(error>tol);
-        
-        System.out.println("\nLa raiz es: "+ c);
-        System.out.println("\nEl error aproximado es: "+ error);
+        newtonRawson();
     }
-    public static double f2(double n){
-        double funcion = (((9.81*n)/14)*(1-Math.exp(-(14/n)*7))-35);
-        return funcion;
+    
+    public static void newtonRawson(){
+        double xv = 10;
+        double xn = 0;
+        double error = 0;
+        double i = 0;
+        double tol = 1e-10;
+        
+        do{
+            i++;
+            xn = xv - (f(xv)/fp(xv));
+            if(Math.abs(fp(xn))<1e-10){
+                System.out.println("Derivada demasiado grande!");
+                exit(1);
+            }
+            error = Math.abs(xn-xv);
+            
+            //xvv = xv;
+            xv = xn;
+        }while(error>tol && i<=10000);
+        
+        System.out.println("X nuevo:"+xn+"\n");
+        if(f(xn)<tol){
+            System.out.println("X nuevo: "+xn);
+            System.out.println("\nError: "+error);
+            System.out.println("\nIteracion: "+i);
+        }
+    }
+    
+    public static double f(double x){
+        return (Math.exp(-x)-x);
+    }
+    public static double fp(double x){
+        return ((-1/Math.exp(x))-1);
     }
 }
